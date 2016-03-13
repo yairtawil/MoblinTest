@@ -13,6 +13,14 @@ angular.module('moblinTest.controllers').controller('mainIndexController', ['$sc
       ]
     };
     $scope.selected_q = {};
+    // $scope.security_questions = [
+    //   {index: 0, question: 'some sq_questions1', answer: '', is_selected: false},
+    //   {index: 1, question: 'some sq_questions2', answer: '', is_selected: false},
+    //   {index: 2, question: 'some sq_questions3', answer: '', is_selected: false},
+    //   {index: 3, question: 'some sq_questions4', answer: '', is_selected: false},
+    //   {index: 4, question: 'some sq_questions5', answer: '', is_selected: false},
+    //   {index: 5, question: 'some sq_questions6', answer: '', is_selected: false}
+    // ];
     $scope.getSecurityQuestions();
   };
 
@@ -58,10 +66,7 @@ angular.module('moblinTest.controllers').controller('mainIndexController', ['$sc
     $scope.onSelectionChanges();
     $scope.selected_q[index] = "Please choose a question";
   };
-  $scope.clearAllBorders = function () {
-
-  };
   $scope.clickSubmit = function () {
-    wrong_input_border
+    console.log('ddddd');
   };
 }]);
