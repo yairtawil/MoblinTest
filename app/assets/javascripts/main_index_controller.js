@@ -12,25 +12,30 @@ angular.module('moblinTest.controllers').controller('mainIndexController', ['$sc
         {title: 'Bing', href: 'http://www.Bing.com/'}
       ]
     };
+    $scope.NO_QUESTION_SELECTED = 'Please choose a question';
     $scope.selected_q = {};
-    // $scope.security_questions = [
-    //   {index: 0, question: 'some sq_questions1', answer: '', is_selected: false},
-    //   {index: 1, question: 'some sq_questions2', answer: '', is_selected: false},
-    //   {index: 2, question: 'some sq_questions3', answer: '', is_selected: false},
-    //   {index: 3, question: 'some sq_questions4', answer: '', is_selected: false},
-    //   {index: 4, question: 'some sq_questions5', answer: '', is_selected: false},
-    //   {index: 5, question: 'some sq_questions6', answer: '', is_selected: false}
-    // ];
+    $scope.input_answers = {};
+    $scope.bad_input = {};
+    $scope.submited = {action: false};
+    $scope.received_answers = {count: 0};
     $scope.getSecurityQuestions();
   };
-
+  var buildArray = function (start, end) {
+    var i;
+    var array = [];
+    for (i = start; i < end; i++) {
+      array.push(i);
+    }
+    return array;
+  };
   $scope.getSecurityQuestions = function () {
     $http({
       method: 'GET',
       url: '/home/GetSecurityQuestions'
     }).then(function successCallback(response) {
-      // console.log('response = ',response.data.questions);
       $scope.security_questions = response.data.questions;
+      $scope.num_of_questions = response.data.num_of_questions;
+      $scope.num_of_questions_array = buildArray(0, $scope.num_of_questions);
     }, function errorCallback(response) {
     });
   };
@@ -38,35 +43,63 @@ angular.module('moblinTest.controllers').controller('mainIndexController', ['$sc
   $scope.clickLink = function (link) {
     window.location = link;
   };
+
   var resetAllIsSelected = function (security_questions) {
     _.forEach(security_questions, function (sq) {
       sq.is_selected = false;
     });
   };
-  var resetAllUnSelectedAnswers = function (security_questions) {
-    _.forEach(security_questions, function (sq) {
-      if (!sq.is_selected) {
-        sq.answer = '';
-      }
-    });
-  };
 
-  $scope.onSelectionChanges = function () {
+  $scope.onSelectionChanges = function (index) {
     resetAllIsSelected($scope.security_questions);
     _.forEach($scope.selected_q, function (selected) {
       var select_q = _.find($scope.security_questions, {index: parseInt(selected, 10)});
-      select_q ? select_q.is_selected = true : false;
+      if (select_q) {
+        select_q.is_selected = true;
+      }
     });
-    resetAllUnSelectedAnswers($scope.security_questions);
+    $scope.bad_input[index] = false;
+    $scope.input_answers[index] = '';
   };
 
   $scope.clearSelectBox = function (index) {
-    var question_row = $scope.security_questions[$scope.selected_q[index]];
-    question_row ? question_row.answer = '' : false;
-    $scope.onSelectionChanges();
-    $scope.selected_q[index] = "Please choose a question";
+    $scope.selected_q[index] = $scope.NO_QUESTION_SELECTED;
+    $scope.onSelectionChanges(index);
+  };
+  $scope.badInputValidation = function (input) {
+    return !input || input.length < 4;
+  };
+  $scope.checkAllAnswers = function () {
+    var no_errors = true;
+    _.forEach($scope.input_answers, function (answer, key) {
+      if ($scope.selected_q[key] !== $scope.NO_QUESTION_SELECTED && $scope.badInputValidation(answer)) {
+        $scope.bad_input[key] = true;
+        no_errors = false;
+      }
+    });
+    return no_errors;
   };
   $scope.clickSubmit = function () {
-    console.log('ddddd');
+    if (!$scope.checkAllAnswers()) {
+      return;
+    }
+    var contents = [];
+    _.forEach($scope.selected_q, function (se_q, key) {
+      if (se_q !== $scope.NO_QUESTION_SELECTED) {
+        var content = {};
+        content.answer    = $scope.input_answers[key];
+        content.question  = _.find($scope.security_questions, {index: parseInt(se_q, 10)}).question;
+        contents.push(content);
+      }
+    });
+    $http({method: 'POST', url: '/home/SubmitAnswers', params: {'contents[]': contents}}).then(
+      function (response) {
+        $scope.received_answers.count = response.data.num_of_answers;
+      },
+      function (error) {
+        console.log('error /home/SubmitAnswers = ', error);
+      }
+    );
+    $scope.submited.action = true;
   };
 }]);

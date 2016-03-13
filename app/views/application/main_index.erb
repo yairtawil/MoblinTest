@@ -1,9 +1,29 @@
+<div class="navbar navbar-default navbar-fixed-top">
+   
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" href="#main-nav">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Animated Burger, Bootstrap</a>
+    </div>
+    
+    <div id="main-nav" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Page One</a></li>
+            <li><a href="#">Page Two</a></li>
+        </ul>
+    </div>
+
+</div>
 <div class='main-index' ng-controller='mainIndexController' ng-init='init()'>
   <div class='header'>
     <div class='logo'></div>
     <div class='hello-user'>Hello user</div>
   </div>
-  <div class='main-screen'>
+  <div class='main-screen' ng-class='{"submited": submited.action}'>
     <div class='side-menu'>
       <div class='items-container'>
         <div class='side-menu-item' ng-repeat='link in side_menu.links' ng-click='clickLink(link.href)'>
@@ -12,20 +32,32 @@
       </div>
     </div>
     <form class='questions-wrapper' ng-submit='clickSubmit()'>
-      <div class='main-content' ng-repeat='question in security_questions track by $index' ng-class='{"first": $first}'>
-        <div class='question-title'>security question {{$index + 1}}</div>
+      <div class='main-content' ng-repeat='question in num_of_questions_array track by $index' ng-class='{"first": $first}'>
+        <div class='question-title'>Security question {{$index + 1}}</div>
         <select ng-init='clearSelectBox($index)'
+                ng-if='!submited.action'
                 class='question-selectbox'
-                ng-change='onSelectionChanges()'
+                ng-change='onSelectionChanges($index)'
                 ng-model="selected_q[$index]">
           <option>Please choose a question</option>
           <option ng-repeat="q in security_questions" ng-value='q.index' ng-hide='q.is_selected'>  {{q.question}}</option>
         </select>
-        <input class='answer-input' ng-model='security_questions[selected_q[$index]].answer' type='text' placeholder="Type your answer here!" ng-disabled='selected_q[$index] === "Please choose a question"'>
-        <input ng-repeat-end class='clear-btn' type='button' ng-click='clearSelectBox($index)' value='Clear'>
+        <input class='answer-input'
+               ng-model='input_answers[$index]'
+               type='text'
+               placeholder="Type your answer here!"
+               ng-change='bad_input[$index] = false'
+               ng-disabled='selected_q[$index] === "Please choose a question"'
+               ng-style="bad_input[$index] ? {'border-color': 'red'} : {}">
+        <input class='clear-btn' type='button' ng-click='clearSelectBox($index)' value='Clear'>
       </div>
       <input class='submit-btn' type='submit' value='Submit'>
     </form>
+    <div class='thanks-wrapper'>
+      <div class="text">Number of received answers is: <br><span class='recived_a'> {{received_answers.count}}</span></div>
+      <div class='thankyou'>Thank you!</div>
+      <input class='try-again-btn' type='button' value="Try again" ng-click='init()'>
+    </div>
   </div>
    <div class="footer">
       All rights reserved to Moblin LTD. 
