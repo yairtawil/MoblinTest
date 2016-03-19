@@ -19,7 +19,9 @@ angular.module('moblinTest.controllers').controller('mainIndexController', ['$sc
     $scope.submited = {action: false};
     $scope.received_answers = {count: 0};
     $scope.getSecurityQuestions();
+    $scope.today = new Date();
   };
+
   var buildArray = function (start, end) {
     var i;
     var array = [];

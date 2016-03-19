@@ -20,7 +20,7 @@ button.dark-blue-border{
 .light-blue-back{
   background-color: $base-light-blue;
 }
-@media screen and (max-width: 1024px){
+@media screen and (max-height: 768px) and (max-width: 1024px) {
   button.navbar-toggle{
     display: block;
   }
@@ -46,6 +46,9 @@ button.dark-blue-border{
             margin-top: 10px;
           }
         }
+      }
+      .submit-btn{
+        width: 300px;
       }
     }
   }
@@ -73,14 +76,21 @@ button.dark-blue-border{
       top: calc(50% - 16.5px);
       float: left;
     }
-    .hello-user{
+    .hello-date{
       float: right;
-      color: $base-dark-blue;
-      font-size: 20px;
-      font-weight: 500;
+      // width: 80px;
+      margin-top: 5px;
       margin-right: 5%;
-      position: relative;
-      top: calc(50% - 10px)
+      .hello-user{
+        color: $base-dark-blue;
+        font-size: 15px;
+        font-weight: 300;
+        position: relative;
+        top: calc(50% - 10px)
+      }
+      .today{
+
+      }
     }
   }
   .main-screen{
