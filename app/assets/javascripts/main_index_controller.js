@@ -58,7 +58,7 @@ angular.module('moblinTest.controllers').controller('mainIndexController', ['$sc
         select_q.is_selected = true;
       }
     });
-    $scope.bad_input[index] = false;
+    $scope.bad_input[index] = {};
     $scope.input_answers[index] = '';
   };
 
@@ -73,7 +73,10 @@ angular.module('moblinTest.controllers').controller('mainIndexController', ['$sc
     var no_errors = true;
     _.forEach($scope.input_answers, function (answer, key) {
       if ($scope.selected_q[key] !== $scope.NO_QUESTION_SELECTED && $scope.badInputValidation(answer)) {
-        $scope.bad_input[key] = true;
+        $scope.bad_input[key] = {
+          val: true,
+          msg: !answer ? 'Answer should not be empty' : 'Answer should contain at least 4 characters'
+        };
         no_errors = false;
       }
     });

@@ -1,5 +1,57 @@
 $base-dark-blue: #07075B;
 $base-light-blue: #5858FC;
+.logo{
+  background-image: image-url('logo.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 33px;
+  width: 99px;
+  margin-left: 5%;
+  position: relative;
+  top: calc(50% - 16.5px);
+  float: left;
+}
+button.navbar-toggle{
+  display: none;
+}
+button.dark-blue-border{
+  border:1px solid $base-dark-blue;
+}
+.light-blue-back{
+  background-color: $base-light-blue;
+}
+@media screen and (max-width: 1024px){
+  button.navbar-toggle{
+    display: block;
+  }
+  div.main-index{
+   .main-screen{
+    .thanks-wrapper{
+      width: 100%;
+    }
+     .side-menu{
+      display: none;
+    }
+    .questions-wrapper{
+       width: 100%;
+       .main-content{
+        width: 300px;
+        height: 200px;
+        .ques-answ-container{
+          .question-selectbox{
+            width: 90%;
+          }
+          .answer-input{
+            width: 90%;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+  }
+  }
+// }
 .main-index{
   background-color: $base-light-blue;
   width: 100%;
@@ -64,14 +116,17 @@ $base-light-blue: #5858FC;
     &.submited{
       .questions-wrapper{
         opacity: 0;
+        transition: 0.5s;
       }
       .thanks-wrapper{
         opacity: 1;
         z-index: 15;
+        transition: 0.5s;
       }
     }
     .thanks-wrapper{
       position: absolute;
+      transition: 0.5s;
       right: 0;
       top:0;
       z-index: 1;
@@ -119,7 +174,6 @@ $base-light-blue: #5858FC;
     }
     .questions-wrapper{
       opacity: 1;
-      transition: 1s;
       float: right;
       height: 100%;
       width: 75%;
@@ -143,7 +197,7 @@ $base-light-blue: #5858FC;
         }
       }
       .main-content{
-        width: 90%;
+        width: 750px;
         height: 30%;
         margin: auto;
         margin-bottom: 5%;
@@ -162,12 +216,13 @@ $base-light-blue: #5858FC;
         &.first{
           margin-top: 5%;
         }
+        .ques-answ-container{
         .question-selectbox{
-          height: 42px;
+          height: 36px;
           color: $base-dark-blue;
           border: 1px solid blue;
           background: white;
-          width: 40%;
+          width: 45%;
           padding-left: 15px;
           margin-left: 5%;
           &:hover{
@@ -177,17 +232,18 @@ $base-light-blue: #5858FC;
         }
         .answer-input{
           height: 36px;
-          float: right;
           margin-right: 5%;
           padding-left: 15px;
           width: 40%;
           outline: none;
+          float: right;
           &:focus{
             border: solid 2px $base-dark-blue;
             background-color: $base-light-blue;
             color: white;
           }
         }
+      }
         .clear-btn{
           position: absolute;
           bottom: 20px;

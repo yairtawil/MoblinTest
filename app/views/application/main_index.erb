@@ -1,26 +1,13 @@
-<div class="navbar navbar-default navbar-fixed-top">
-   
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" href="#main-nav">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Animated Burger, Bootstrap</a>
-    </div>
-    
-    <div id="main-nav" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page One</a></li>
-            <li><a href="#">Page Two</a></li>
-        </ul>
-    </div>
 
-</div>
-<div class='main-index' ng-controller='mainIndexController' ng-init='init()'>
+
+<div id='responsive' class='main-index' ng-controller='mainIndexController' ng-init='init()'>
   <div class='header'>
     <div class='logo'></div>
+    <button type="button" class="navbar-toggle collapsed dark-blue-border">
+      <span class="icon-bar light-blue-back"></span>
+      <span class="icon-bar light-blue-back"></span>
+      <span class="icon-bar light-blue-back"></span>
+    </button>
     <div class='hello-user'>Hello user</div>
   </div>
   <div class='main-screen' ng-class='{"submited": submited.action}'>
@@ -34,22 +21,25 @@
     <form class='questions-wrapper' ng-submit='clickSubmit()'>
       <div class='main-content' ng-repeat='question in num_of_questions_array track by $index' ng-class='{"first": $first}'>
         <div class='question-title'>Security question {{$index + 1}}</div>
-        <select ng-init='clearSelectBox($index)'
+        <div class="ques-answ-container">
+          <select ng-init='clearSelectBox($index)'
                 ng-if='!submited.action'
                 class='question-selectbox'
                 ng-change='onSelectionChanges($index)'
                 ng-model="selected_q[$index]">
-          <option>Please choose a question</option>
-          <option ng-repeat="q in security_questions" ng-value='q.index' ng-hide='q.is_selected'>  {{q.question}}</option>
-        </select>
-        <input class='answer-input'
+            <option>Please choose a question</option>
+            <option ng-repeat="q in security_questions" ng-value='q.index' ng-hide='q.is_selected'>  {{q.question}}</option>
+          </select>
+          <input class='answer-input'
                ng-model='input_answers[$index]'
                type='text'
                placeholder="Type your answer here!"
-               ng-change='bad_input[$index] = false'
+               ng-change='bad_input[$index] = {}'
                ng-disabled='selected_q[$index] === "Please choose a question"'
-               ng-style="bad_input[$index] ? {'border-color': 'red'} : {}">
-        <input class='clear-btn' type='button' ng-click='clearSelectBox($index)' value='Clear'>
+               ng-style="bad_input[$index].val ? {'border-color': 'red'} : {}">
+        </div>
+          <div style='color:red;text-align: center;margin-top:15px;' ng-show='bad_input[$index].val' class='bad-input-msg'>{{bad_input[$index].msg}}</div>
+          <input class='clear-btn' type='button' ng-click='clearSelectBox($index)' value='Clear'>
       </div>
       <input class='submit-btn' type='submit' value='Submit'>
     </form>
