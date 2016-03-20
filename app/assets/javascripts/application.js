@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require angular
-//= require clickoutside.directive
 //= require lodash
 //= require jquery
 //= require jquery_ujs
