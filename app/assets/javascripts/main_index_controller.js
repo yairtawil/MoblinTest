@@ -12,6 +12,7 @@ angular.module('moblinTest.controllers').controller('mainIndexController', ['$sc
         {title: 'Bing', href: 'http://www.Bing.com/'}
       ]
     };
+    $scope.right_menu = {show: false};
     $scope.NO_QUESTION_SELECTED = 'Please choose a question';
     $scope.selected_q = {};
     $scope.input_answers = {};
@@ -20,6 +21,9 @@ angular.module('moblinTest.controllers').controller('mainIndexController', ['$sc
     $scope.received_answers = {count: 0};
     $scope.getSecurityQuestions();
     $scope.today = new Date();
+  };
+  $scope.openMenu = function () {
+    $scope.right_menu.show = !$scope.right_menu.show;
   };
 
   var buildArray = function (start, end) {

@@ -1,13 +1,19 @@
 
 
-<div id='responsive' class='main-index' ng-controller='mainIndexController' ng-init='init()'>
+<div class='main-index' ng-controller='mainIndexController' ng-init='init()'>
   <div class='header'>
     <div class='logo'></div>
-    <button type="button" class="navbar-toggle collapsed dark-blue-border">
+    <button type="button" class="navbar-toggle collapsed dark-blue-border" ng-click='openMenu()'>
       <span class="icon-bar light-blue-back"></span>
       <span class="icon-bar light-blue-back"></span>
       <span class="icon-bar light-blue-back"></span>
     </button>
+    <div class="black-screen" ng-show='right_menu.show' ng-click='right_menu.show = false'></div>
+    <div class='right-menu' ng-class="{'show': right_menu.show}">
+      <div class='right-menu-item' ng-repeat='link in side_menu.links' ng-click='clickLink(link.href)'>
+        {{link.title}}
+      </div>
+    </div>
     <div class="hello-date">
       <div class='hello-user'>Hello user</div>
       <div class='today'>{{today | date: 'MMM dd yyyy' : 'UTC'}}</div>
