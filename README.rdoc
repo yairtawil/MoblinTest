@@ -1,5 +1,6 @@
 moblin test
 
 
-documentation on : https://docs.google.com/document/d/1CgVi5TwaXRyqlX-JNze5X04atwclikUYWBM3Mm18b1M/edit?usp=sharing
-run on : moblin-test@herokuapp.com
+documentation on: https://docs.google.com/document/d/1CgVi5TwaXRyqlX-JNze5X04atwclikUYWBM3Mm18b1M/edit?usp=sharing
+
+run on: https://moblin-test@herokuapp.com/
