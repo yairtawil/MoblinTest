@@ -28,15 +28,17 @@ button.dark-blue-border{
     background: white;
   }
   div.main-index{
+    .header{
+      .right-menu{
+        display: block;
+      }
+    }
    .main-screen{
     .thanks-wrapper{
       width: 100%;
     }
      .side-menu{
       display: none;
-    }
-    .right-menu{
-
     }
     .questions-wrapper{
        width: 100%;
@@ -90,6 +92,7 @@ button.dark-blue-border{
       z-index: 13;
     }
     .right-menu{
+      display: none;
       position: absolute;
       right: 0;
       top: 8%;
@@ -98,10 +101,7 @@ button.dark-blue-border{
       height: 0px;
       z-index: 13;
       transition: 0.5s;
-      &.show{
-        .black-screen{
-          display: block;
-        }
+      &.show-menu{
         height: 84%;
         .right-menu-item{
           display: block;
@@ -178,7 +178,7 @@ button.dark-blue-border{
       }
       .thanks-wrapper{
         opacity: 1;
-        z-index: 15;
+        z-index: 12;
         transition: 0.5s;
       }
     }

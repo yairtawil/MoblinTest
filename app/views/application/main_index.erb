@@ -9,7 +9,7 @@
       <span class="icon-bar light-blue-back"></span>
     </button>
     <div class="black-screen" ng-show='right_menu.show' ng-click='right_menu.show = false'></div>
-    <div class='right-menu' ng-class="{'show': right_menu.show}">
+    <div class='right-menu' ng-class="{'show-menu': right_menu.show}">
       <div class='right-menu-item' ng-repeat='link in side_menu.links' ng-click='clickLink(link.href)'>
         {{link.title}}
       </div>
